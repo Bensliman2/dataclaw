@@ -272,6 +272,3 @@ See [`envi-test/README.md`](./envi-test/README.md) for full setup instructions a
 - An LLM — local via [Ollama](https://ollama.com) or API-based (OpenAI, Anthropic, etc.)
 - Docker (optional — needed for sandbox execution and test environment)
 
-## License
-
-MIT
