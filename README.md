@@ -168,30 +168,35 @@ Just describe what you want in plain English:
 
 ### Slash commands
 
-Quick actions that bypass the LLM:
+**LLM-powered** (sends a smart prompt to the agent — works for ANY system):
+
+| Command                    | Description                                     |
+|----------------------------|-------------------------------------------------|
+| `/describe <system>`       | Describe a system — what it contains and why    |
+| `/explore <system>`        | Discover everything available in a system       |
+| `/summary <system>`        | Quick 3-5 bullet point overview                 |
+| `/health <system>`         | Check if a system is healthy and responding     |
+| `/sample <system> [target]`| Show sample data from any system                |
+
+**System** (instant, no LLM needed):
 
 | Command                    | Description                          |
 |----------------------------|--------------------------------------|
-| `/status`                  | System health check                  |
-| `/connections`             | Show configured data sources         |
-| `/schemas [db]`            | List database schemas                |
-| `/tables [db]`             | List all tables                      |
-| `/describe <table> [db]`   | Show table columns and types         |
-| `/count <table> [db]`      | Count rows in a table                |
-| `/sample <table> [db]`     | Show 5 sample rows                   |
+| `/status`                  | System health dashboard              |
+| `/connections`             | Show all configured data sources     |
 | `/tools`                   | List agent-built tools               |
 | `/skills`                  | List reusable skills                 |
 | `/config`                  | View/edit runtime settings           |
 | `/help`                    | Show all commands                    |
 
-### Multi-database
-
-Multiple databases? DataClaw asks which one you mean — or specify directly:
-
+Examples:
 ```
-> /tables main_db
-> /describe raw.orders analytics_db
-> /count users my_postgres
+> /describe postgres          # lists schemas, tables, explains the data model
+> /describe airflow           # lists DAGs, schedules, explains each one
+> /describe kafka             # lists topics, explains the messaging setup
+> /explore postgres           # full inventory of everything in the database
+> /health ssh_server          # checks if the SSH server is responding
+> /sample airflow             # shows sample DAG runs or task instances
 ```
 
 ---
@@ -272,6 +277,3 @@ See [`envi-test/README.md`](./envi-test/README.md) for full setup instructions a
 - An LLM — local via [Ollama](https://ollama.com) or API-based (OpenAI, Anthropic, etc.)
 - Docker (optional — needed for sandbox execution and test environment)
 
-## License
-
-MIT
