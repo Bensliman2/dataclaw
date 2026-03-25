@@ -1,0 +1,91 @@
+# ═══════════════════════════════════════════════════════
+# DataClaw — Public repo: README + envi-test only
+# Source code is distributed via PyPI (pip install dataclaw)
+# ═══════════════════════════════════════════════════════
+
+# Source code (private — distributed via pip)
+cli/
+agents/
+contracts/
+graphs/
+memory/
+sandbox/
+connectors/
+skills/
+mcp-tools/
+mcp_client/
+utils/
+
+# Build & packaging
+pyproject.toml
+MANIFEST.in
+setup.py
+setup.cfg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Config (private)
+config/
+
+# Internal docs
+CLAUDE.md
+
+# Secrets
+.env
+config/secrets/.env
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Logs
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker dev files
+Dockerfile
+Dockerfile.test
+.dockerignore
+*.pid
+
+# dbt build artifacts
+envi-test/dbt/target/
+envi-test/dbt/.user.yml
+
+# ChromaDB
+chroma_data/
+
+# Memory catalog
+memory/catalog.db
+
+# Tests
+test_*.py
+tests/
+
+# Claude internal
+.claude/
+
+# Pytest
+.pytest_cache/
+
+# KEEP these (not ignored):
+# README.md
+# envi-test/
+# assets/
