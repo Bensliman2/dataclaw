@@ -1,0 +1,18 @@
+app:
+  name: data-pipeline
+  version: 2.1.0
+  environment: production
+
+database:
+  host: db.internal.company.com
+  port: 5432
+  name: production_warehouse
+
+scheduler:
+  cron: "0 */6 * * *"
+  timezone: UTC
+  max_retries: 3
+
+logging:
+  level: INFO
+  output: /var/log/pipeline.log
