@@ -218,6 +218,77 @@ Examples:
 
 ---
 
+## MCP Server Integration
+
+DataClaw includes a built-in **MCP client** that can connect to any [Model Context Protocol](https://modelcontextprotocol.io/) server. MCP tools are **prioritized over all other methods** — if an MCP server provides a tool for the task, DataClaw uses it directly instead of bootstrap tools or generated code.
+
+### Why MCP?
+
+MCP servers are standardized tool providers. Instead of DataClaw generating code from scratch, you can plug in battle-tested MCP servers that already know how to talk to your systems — with proper error handling, pagination, and edge cases covered.
+
+### How to configure
+
+Add `mcp_server:` to any technology in `~/.dataclaw/connections.yaml`:
+
+```yaml
+technologies:
+
+  # Use an MCP server for filesystem access
+  my_files:
+    type: filesystem
+    driver: mcp
+    access_level: read
+    connection:
+      project_dir: /path/to/project
+    mcp_server:
+      command: "npx @modelcontextprotocol/server-filesystem /path/to/project"
+      env: {}
+
+  # Use an MCP server for SQLite
+  my_sqlite:
+    type: database
+    driver: mcp
+    access_level: read
+    connection:
+      database: /path/to/my.db
+    mcp_server:
+      command: "npx @modelcontextprotocol/server-sqlite /path/to/my.db"
+      env: {}
+
+  # Your own custom MCP server (Python + FastMCP)
+  my_tools:
+    type: api
+    driver: mcp
+    access_level: read
+    connection: {}
+    mcp_server:
+      command: "python my_mcp_server.py"
+      env:
+        API_KEY: ${MY_API_KEY}
+```
+
+### Tool priority order
+
+```
+1. MCP server tools     ← highest priority (pre-built, tested)
+2. Bootstrap tools      ← built-in (run_query, call_api, read_files)
+3. Agent-built tools    ← generated and committed by the builder
+4. Ephemeral code       ← generated on-the-fly, discarded after use
+```
+
+### Available MCP servers
+
+| Server | Install | Use case |
+|--------|---------|----------|
+| **filesystem** | `npm i -g @modelcontextprotocol/server-filesystem` | Read/search/list files |
+| **sqlite** | `npm i -g @modelcontextprotocol/server-sqlite` | Query SQLite databases |
+| **postgres** | `npm i -g @modelcontextprotocol/server-postgres` | Query PostgreSQL |
+| **github** | `npm i -g @modelcontextprotocol/server-github` | Browse GitHub repos |
+
+Or build your own with [FastMCP](https://github.com/jlowin/fastmcp) (Python) or the [MCP SDK](https://github.com/modelcontextprotocol/sdk) (TypeScript).
+
+---
+
 ## Skills — How DataClaw Learns
 
 When the agent successfully runs code against a non-bootstrap technology, it offers to save the pattern as a **skill**:
